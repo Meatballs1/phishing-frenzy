@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150515012820) do
+ActiveRecord::Schema.define(version: 20150714194319) do
 
   create_table "activities", force: true do |t|
     t.integer  "trackable_id"
@@ -37,8 +37,8 @@ ActiveRecord::Schema.define(version: 20150515012820) do
     t.string   "salt"
     t.boolean  "active",                 default: true
     t.string   "notes"
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "email",                  default: "",    null: false
     t.string   "encrypted_password",     default: "",    null: false
     t.string   "reset_password_token"
@@ -60,8 +60,8 @@ ActiveRecord::Schema.define(version: 20150515012820) do
     t.string   "file"
     t.integer  "attachable_id"
     t.string   "attachable_type"
-    t.datetime "created_at", 
-    t.datetime "updated_at",
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "function",        default: "website"
   end
 
@@ -73,8 +73,8 @@ ActiveRecord::Schema.define(version: 20150515012820) do
     t.string   "status"
     t.string   "message"
     t.integer  "blast_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "blasts", force: true do |t|
@@ -166,6 +166,7 @@ ActiveRecord::Schema.define(version: 20150515012820) do
     t.string   "domain"
     t.string   "authentication"
     t.boolean  "enable_starttls_auto"
+    t.string   "reply_to"
   end
 
   add_index "email_settings", ["campaign_id"], name: "index_email_settings_on_campaign_id", using: :btree
