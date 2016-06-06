@@ -1,6 +1,6 @@
 class GlobalSettings < ActiveRecord::Base
 
-  attr_accessible :smtp_timeout, :asynchronous, :bing_api, :beef_url, :reports_refresh, :singleton
+  attr_accessible :smtp_timeout, :asynchronous, :bing_api, :beef_url, :reports_refresh, :singleton, :site_url
 
   validates :site_url, uri: true
   validates :smtp_timeout, :presence => true, :length => {:maximum => 2},
