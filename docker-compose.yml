@@ -1,0 +1,37 @@
+app:
+  build: .
+  command: "/usr/sbin/apache2ctl -D FOREGROUND"
+  volumes:
+    - /tmp/logs:/var/log/apache2
+#    - ./config/database.yml:/var/www/phishing-frenzy/config/database.yml
+#    - .:/var/www/phishingfrenzy
+  ports:
+    - '80:80'
+  links:
+    - redis
+    - postgres
+    - sidekiq
+  environment:
+    RAILS_ENV: production
+redis:
+  image: redis
+  ports:
+    - '6379'
+sidekiq:
+  build: .
+  command: "bundle exec sidekiq -C config/sidekiq.yml"
+  links:
+    - redis
+    - postgres
+  volumes:
+    - /tmp/sidekiq:/var/www/phishing-frenzy/log
+#    - .:/var/www/phishingfrenzy
+#    - ./config/database.yml:/var/www/phishing-frenzy/config/database.yml
+  ports:
+    - '7474'
+  environment:
+    RAILS_ENV: production
+postgres:
+  image: postgres
+  ports:
+    - '5432'

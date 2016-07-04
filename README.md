@@ -19,3 +19,12 @@ Please submit any tickets or issues to the github issues page
 To contact us directly plese use the official Phishing Frenzy website
 
 * [Phishing Frenzy Website](http://www.phishingfrenzy.com/contact)
+
+Docker-Compose
+==============
+
+`docker-compose build`
+`docker-compose run app rake db:create db:migrate db:seed`
+`docker-compose run app rake templates:load`
+`docker-compose run app rake assets:precompile`
+`docker-compose up`
