@@ -3,18 +3,32 @@ require 'cgi'
 class SiteDeliveryController < ApplicationController
   skip_before_filter :authenticate_admin!
 
+  #
+  # Perform a brute force on the k,v for the UID.
+  # This allows us to mask the UID in many different
+  # parameters, including RESTful routes
   def get_uid
-    uid = params[:uid]
-    unless uid
-      if request.referrer
-        referrer_params = CGI.parse(URI.parse(request.referrer).query)
-        if referrer_params.key? 'uid'
-          uid = referrer_params['uid'].first
+    params.each do |k,v|
+      next if v.blank? || !v.is_a?(String)
+      return v if v == '000000'
+      if get_victim(v)
+        return v
+      end
+    end
+
+    # If we cant find UID in params, check referrer
+    if request.referrer
+      referrer_params = CGI.parse(URI.parse(request.referrer).query)
+      referrer_params.each do |k,v|
+        next if v.blank? || !v.is_a?(String)
+        return v if v == '000000'
+        if get_victim(v)
+          return v
         end
       end
     end
 
-    uid
+    nil
   end
 
   def get_victim(uid)
