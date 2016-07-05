@@ -1,6 +1,6 @@
 app:
   build: .
-  command: "/usr/sbin/apache2ctl -D FOREGROUND"
+  command: "bash -c 'rm -f /run/apache2/apache2.pid &&/usr/sbin/apache2ctl -D FOREGROUND'"
   volumes:
     - /tmp/logs:/var/log/apache2
 #    - ./config/database.yml:/var/www/phishing-frenzy/config/database.yml

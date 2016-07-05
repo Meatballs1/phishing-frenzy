@@ -26,7 +26,7 @@ class Template < ActiveRecord::Base
 	end
 
 	def website_files
-		attachments.where('function like "website%"').all
+		attachments.where("function LIKE 'website%'").all
 	end
 
 	def email_files
