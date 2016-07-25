@@ -47,7 +47,7 @@ class SiteDeliveryController < ApplicationController
   end
 
   def create_visit(victim, extra)
-    return if victim.id.nil? || victim.uid == '000000'
+    return if victim.nil? || victim.id.nil? || victim.uid == '000000'
 
     visit = Visit.new
     visit.victim_id = victim.id
@@ -64,14 +64,30 @@ class SiteDeliveryController < ApplicationController
     visit.save
   end
 
-  def tracking_image
+  def tracking_image_macro
+    tracking_image("MACRO")
+  end
+
+  def tracking_image_document
+    tracking_image("DOCUMENT")
+  end
+
+  def tracking_image_payload
+    tracking_image("PAYLOAD")
+  end
+
+  def tracking_image_email
+    tracking_image("EMAIL")
+  end
+
+  def tracking_image(source)
     begin
       @campaign = Campaign.find(params[:id])
       uid = get_uid
       victim = get_victim(uid)
 
       if victim
-        create_visit(victim, 'SOURCE: EMAIL')
+        create_visit(victim, "SOURCE:#{source}")
       else
         logger.info  "Tracking image request for unknown UID: #{uid}"
       end

@@ -4,8 +4,6 @@ PhishingFramework::Application.routes.draw do
 
 	devise_for :admins
 
-
-
 	# only allow emails to be sent from POST request
 	post '/email/preview_email/:id' => 'email#preview', as: 'preview_email'
 	post '/email/test_email/:id' =>    'email#test', as: 'test_email'
@@ -45,7 +43,10 @@ PhishingFramework::Application.routes.draw do
   post 'site_delivery/view/:id/:filename', to: 'site_delivery#view', constraints: { filename: /[^\/]+/ }
 
   # image tracking routes.
-  get 'site_delivery/tracking_image/:id/:uid.png' => 'site_delivery#tracking_image'
+  get 'site_delivery/tracking_image_email/:id/:uid.png' => 'site_delivery#tracking_image_email'
+  get 'site_delivery/tracking_image_macro/:id/:uid.png' => 'site_delivery#tracking_image_macro'
+  get 'site_delivery/tracking_image_document/:id/:uid.png' => 'site_delivery#tracking_image_document'
+  get 'site_delivery/tracking_image_payload/:id/:uid.png' => 'site_delivery#tracking_image_payload'
 
 
 	resources :blasts, only: [:show], shallow: true

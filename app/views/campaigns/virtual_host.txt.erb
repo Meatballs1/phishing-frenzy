@@ -15,8 +15,14 @@
 
     ProxyRequests Off
     ProxyPreserveHost Off
-    ProxyPass /reports/image <%= GlobalSettings.first.site_url %>/site_delivery/tracking_image/<%= @campaign_id %>
-    ProxyPassReverse /reports/image <%= GlobalSettings.first.site_url %>/site_delivery/tracking_image/<%= @campaign_id %>
+    ProxyPass /reports/image <%= GlobalSettings.first.site_url %>/site_delivery/tracking_image_email/<%= @campaign_id %>
+    ProxyPassReverse /reports/image <%= GlobalSettings.first.site_url %>/site_delivery/tracking_image_email/<%= @campaign_id %>
+    ProxyPass /api/image <%= GlobalSettings.first.site_url %>/site_delivery/tracking_image_macro/<%= @campaign_id %>
+    ProxyPassReverse /api/image <%= GlobalSettings.first.site_url %>/site_delivery/tracking_image_macro/<%= @campaign_id %>
+    ProxyPass /cache/image <%= GlobalSettings.first.site_url %>/site_delivery/tracking_image_document/<%= @campaign_id %>
+    ProxyPassReverse /cache/image <%= GlobalSettings.first.site_url %>/site_delivery/tracking_image_document/<%= @campaign_id %>
+    ProxyPass /style/image <%= GlobalSettings.first.site_url %>/site_delivery/tracking_image_payload/<%= @campaign_id %>
+    ProxyPassReverse /style/image <%= GlobalSettings.first.site_url %>/site_delivery/tracking_image_payload/<%= @campaign_id %>
     ProxyPass / <%= GlobalSettings.first.site_url %>/site_delivery/view/<%= @campaign_id %>/
     ProxyPassReverse / <%= GlobalSettings.first.site_url %>/site_delivery/view/<%= @campaign_id %>/
 

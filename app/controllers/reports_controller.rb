@@ -125,16 +125,28 @@ class ReportsController < ApplicationController
         "Link First Clicked",
         "Link Clicked",
         "Credentials First Entered",
-        "Credentials Entered"
+        "Credentials Entered",
+        "Document First Opened",
+        "Document Opened",
+        "Macro First Run",
+        "Macro Run",
+        "Payload First Run",
+        "Payload Run",
       ], style: @heading
       @victims.each do |victim|
         visits = Visit.where(victim_id: victim.id).order(created_at: :asc)
-        first_email_visit = visits.find {|v| v.extra == 'SOURCE: EMAIL' }
+        first_email_visit = visits.find {|v| v.extra == 'SOURCE:EMAIL' }
+        first_macro_visit = visits.find {|v| v.extra == 'SOURCE:MACRO' }
+        first_payload_visit = visits.find {|v| v.extra == 'SOURCE:PAYLOAD' }
+        first_document_visit = visits.find {|v| v.extra == 'SOURCE:DOCUMENT' }
         first_click_visit = visits.find {|v| v.extra.blank? }
         first_pass_visit = visits.find {|v| (v.extra && v.extra.include?('password'))}
         pass_time = first_pass_visit ? first_pass_visit.created_at.to_formatted_s(:db) : nil
         click_time = first_click_visit ? first_click_visit.created_at.to_formatted_s(:db) : nil
         email_time = first_email_visit ? first_email_visit.created_at.to_formatted_s(:db) : nil
+        macro_time = first_email_visit ? first_macro_visit.created_at.to_formatted_s(:db) : nil
+        document_time = first_email_visit ? first_payload_visit.created_at.to_formatted_s(:db) : nil
+        payload_time = first_email_visit ? first_document_visit.created_at.to_formatted_s(:db) : nil
 
         sheet.add_row [
           victim.firstname,
@@ -145,7 +157,13 @@ class ReportsController < ApplicationController
           click_time,
           victim.clicked?,
           pass_time,
-          victim.password?
+          victim.password?,
+          document_time,
+          "?",
+          macro_time,
+          "?",
+          payload_time,
+          "?"
         ], style: @data
       end
       sheet.column_widths 20, 20, 20, 20, 20
