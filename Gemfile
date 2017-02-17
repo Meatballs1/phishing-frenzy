@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '4.1.7'
 
-gem 'mysql2'
+gem 'pg'
 gem 'sass-rails'
 gem 'coffee-rails'
 
@@ -55,7 +55,7 @@ gem 'execjs'
 
 # bootstrap
 gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
-gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git', :branch => 'bootstrap3'
+gem 'twitter-bootstrap-rails', :git => 'https://github.com/seyhunak/twitter-bootstrap-rails.git', :branch => 'bootstrap3'
 
 # For uploading email attacments
 gem 'carrierwave'
